@@ -1,0 +1,16 @@
+<html>
+    <head>
+      <title>Flask-Dash App Factory</title>
+    </head>
+    <body>
+        <header>
+            <a href="/" class='nav-bar-text-link'>Home:</a>
+            <a href="/app_1" class='nav-bar-text-link'>App 1</a>
+            <a href="/app_2" class='nav-bar-text-link'>App 2</a>
+            <a href="/non_dash_app" class='nav-bar-text-link'>Non-Dash App</a>
+        </header>
+        {% block content %}{% endblock %}
+    </body>
+
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='app_style.css')}}">
+</html>

@@ -1,64 +1,13 @@
 import dash_core_components as dcc
 import dash_html_components as html
-from .data.data import Data
-
-df = Data.get_raw()
-available_indicators = Data.get_available_indicators(df)
-
-APP_BUTTON_COLOR = '#e3e3e3'
-APP_TEAL = '#05929f'
-
-tabs_row_1_style = {
-    'height': '35px',
-    'marginLeft': '-8px',
-    'marginTop': '-8px',
-    'marginRight': '-8px',
-    'marginBottom': '10px',
-    'width': '100vw',
-}
-
-tab_on_row_1_style = {
-    'borderBottom': '1px solid #d6d6d6',
-    'padding': '6px',
-    'fontWeight': 'bold'
-}
-
-tab_on_row_1_selected_style = {
-    'borderTop': '1px solid #d6d6d6',
-    'borderBottom': '1px solid #d6d6d6',
-    'backgroundColor': APP_BUTTON_COLOR,
-    'color': APP_TEAL,
-    'padding': '6px',
-    'textDecoration': 'underline',
-    'fontWeight': 'bold'
-}
-
-
-def top_row_of_app_1_tabs():
-    return html.Div(
-        children=[
-            dcc.Tabs(
-                id="dash-tabs",
-                value='tab-1',
-                children=[
-                    dcc.Tab(label='Tab 1', value='tab-1', style=tab_on_row_1_style,
-                            selected_style=tab_on_row_1_selected_style),
-                    dcc.Tab(label='Tab 2', value='tab-2', style=tab_on_row_1_style,
-                            selected_style=tab_on_row_1_selected_style),
-                    dcc.Tab(label='Tab 3', value='tab-3', style=tab_on_row_1_style,
-                            selected_style=tab_on_row_1_selected_style),
-                    dcc.Tab(label='Tab 4', value='tab-4', style=tab_on_row_1_style,
-                            selected_style=tab_on_row_1_selected_style),
-                ],
-                style=tabs_row_1_style
-            ),
-            html.Div(id='dash-tabs-container')
-        ],
-    )
+from main_app.app_1.data.data import Data
+from main_app.dash_shared import shared_dash_nav_links
 
 
 def plotly_sample_app():
-    return html.Div([
+    df = Data.get_raw()
+    available_indicators = Data.get_available_indicators(df)
+    this_functions_layout_elements = html.Div([
         html.Div([
             html.Div([
                 dcc.Dropdown(
@@ -100,11 +49,14 @@ def plotly_sample_app():
             step=None
         )
     ])
+    return this_functions_layout_elements
 
 
 layout = html.Div(
     id='app_1_page_layout',
     children=[
-        top_row_of_app_1_tabs(),
+        shared_dash_nav_links(),
         plotly_sample_app(),
-    ])
+        # other layout functions can go here.
+    ]
+)

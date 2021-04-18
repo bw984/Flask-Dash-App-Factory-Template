@@ -4,7 +4,7 @@ from dash import Dash
 from os import getpid
 
 
-def create_app(dash_debug):
+def create_app(dash_debug, dash_auto_reload):
     server = Flask(__name__, static_folder='static')
 
     # configure flask app/server here
@@ -19,7 +19,8 @@ def create_app(dash_debug):
         base_pathname='app_1_raw_dash',
         layout=app_1_layout,
         register_callbacks_funcs=[app_1_callbacks],
-        dash_debug=dash_debug
+        dash_debug=dash_debug,
+        dash_auto_reload=dash_auto_reload
     )
 
     from main_app.app_2.layout import layout as app_2_layout
@@ -30,7 +31,8 @@ def create_app(dash_debug):
         base_pathname='app_2_raw_dash',
         layout=app_2_layout,
         register_callbacks_funcs=[app_2_callbacks],
-        dash_debug=dash_debug
+        dash_debug=dash_debug,
+        dash_auto_reload=dash_auto_reload
     )
 
     # register extensions here
@@ -41,7 +43,7 @@ def create_app(dash_debug):
     return server
 
 
-def register_dash_app(flask_server, title, base_pathname, layout, register_callbacks_funcs, dash_debug):
+def register_dash_app(flask_server, title, base_pathname, layout, register_callbacks_funcs, dash_debug, dash_auto_reload):
     # Meta tags for viewport responsiveness
     meta_viewport = {"name": "viewport", "content": "width=device-width, initial-scale=1, shrink-to-fit=no"}
 
@@ -59,7 +61,7 @@ def register_dash_app(flask_server, title, base_pathname, layout, register_callb
         my_dash_app.title = title
         my_dash_app.layout = layout
         my_dash_app.css.config.serve_locally = True
-        my_dash_app.enable_dev_tools(debug=dash_debug, dev_tools_hot_reload=False)
+        my_dash_app.enable_dev_tools(debug=dash_debug, dev_tools_hot_reload=dash_auto_reload)
         for call_back_func in register_callbacks_funcs:
             call_back_func(my_dash_app)
 

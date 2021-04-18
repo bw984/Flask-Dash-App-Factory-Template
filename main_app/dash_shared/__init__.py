@@ -5,7 +5,7 @@ def shared_dash_nav_links() -> html.Div:
     link_style = {'marginLeft': '10px'}
     links = html.Div(
         id='shared-navigation-links',
-        style={'display': 'flex', 'flexWrap': 'wrap', 'marginTop': '15px', 'marginBottom': '15px'},
+        style={'display': 'flex', 'flexWrap': 'wrap', 'marginTop': '15px', 'marginBottom': '15px', 'backgroundColor': 'lightBlue'},
         children=[
             html.Div('These links are part of the dash layout, shared by both applications'),
             html.A(
